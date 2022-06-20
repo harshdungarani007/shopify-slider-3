@@ -1,0 +1,195 @@
+{{ 'slick.css' | asset_url | stylesheet_tag }}
+{{ 'jushar-slider-3.css' | asset_url | stylesheet_tag }}
+{{ 'animate.min.css' | asset_url | stylesheet_tag }}
+<script src="{{ 'slick.min.js' | asset_url }}" defer="defer"></script>
+<script src="{{ 'slick-animation.min.js' | asset_url }}"></script>
+<div class="banner__slider">
+  <div class="jushar_slider_3 stick-dots">
+    {% for block in section.blocks %}
+    <div class="slide">
+      <div class="slide__img">
+        {% if block.settings.bg_image != blank %}
+        <img src="" alt="" data-lazy="{{ block.settings.bg_image | image_url }}" class="full-image animated" data-animation-in="zoomInImage"/>
+        {% endif %}
+      </div>
+      <div class="slide__content block_{{ block.settings.position }}">
+        <div class="slide__content--headings text-center">
+           {% if block.settings.heading_desc != blank %}
+           <p class="animated top-title" data-animation-in="{{ block.settings.animation }}" data-delay-in="0.3" style="color:{{ block.settings.title_desc }}">{{ block.settings.heading_desc }}</p>
+           {% endif %}
+           {% if block.settings.heading_titl != blank %}
+		   <h2 class="animated title" data-animation-in="{{ block.settings.animation }}" style="color:{{ block.settings.title_desc }}">{{ block.settings.heading_titl }}</h2>
+           {% endif %}
+           {% if block.settings.buttone_title != blank %}
+		   <a class="btn-light btn button-custom animated" data-animation-in="{{ block.settings.animation }}" style="color:{{ block.settings.buttone_color }};background:{{ block.settings.buttone_bg }}">{{ block.settings.buttone_title }}</a>
+           {% endif %}
+        </div>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+</div>
+
+
+
+
+<script>
+$( document ).ready(function() {
+$('.jushar_slider_3').slick({
+  autoplay: true,
+  speed: 800,
+  lazyLoad: 'progressive',
+  arrows: true,
+  dots: false,
+	prevArrow: '<div class="slick-nav prev-arrow"><i></i><svg><use xlink:href="#circle"></svg></div>',
+	nextArrow: '<div class="slick-nav next-arrow"><i></i><svg><use xlink:href="#circle"></svg></div>',
+}).slickAnimation();
+
+
+
+$('.slick-nav').on('click touch', function(e) {
+
+    e.preventDefault();
+
+    var arrow = $(this);
+
+    if(!arrow.hasClass('animate')) {
+        arrow.addClass('animate');
+        setTimeout(() => {
+            arrow.removeClass('animate');
+        }, 1600);
+    }
+
+});
+});
+</script>
+{% schema %}
+  {
+    "name": "Jushar Slider 3",
+	"tag": "section",
+	"class": "section",
+	"max_blocks": 3,
+    "settings": [
+	
+	],
+	"blocks": [
+        {
+          "type": "column",
+          "name": "Jushar Slider 3",
+          "settings": [
+            {
+              "type": "image_picker",
+              "id": "bg_image",
+              "label": "Background image"
+            },
+			{
+			  "type": "text",
+			  "id": "heading_titl",
+			  "label": "Slider Heading",
+			  "default": "Bring your team together in jushar"
+			},
+			{
+			  "type": "text",
+			  "id": "heading_desc",
+			  "label": "Slider desc",
+			  "default": "Jushar is the place for everything related to a project, to-do-list or communication."
+			},
+			{
+			  "type": "color",
+			  "id": "title_desc",
+			  "label": "Select color for title and description",
+			  "default": "#111111"
+			},
+			{
+              "type": "header",
+              "content": "button"
+            },
+			{
+			  "type": "text",
+			  "id": "buttone_title",
+			  "label": "Buttone text",
+			  "default": "Get Started"
+			},
+			{
+			  "type": "url",
+			  "id": "url",
+			  "label": "Buttone url"
+			},
+			{
+			  "type": "color",
+			  "id": "buttone_color",
+			  "label": "Select buttone text color",
+			  "default": "#ffffff"
+			},
+			{
+			  "type": "color",
+			  "id": "buttone_bg",
+			  "label": "Select buttone background color",
+			  "default": "#111111"
+			},
+  			{
+              "type": "header",
+              "content": "button"
+            },
+  			{
+              "type": "select",
+              "id": "position",
+              "options": [
+                {
+                  "value": "left",
+                  "label": "Left"
+                },
+                {
+                  "value": "center",
+                  "label": "Center"
+                },
+                {
+                  "value": "right",
+                  "label": "Right"
+                }
+              ],
+              "default": "center",
+              "label": "select text block position"
+            },
+  			{
+              "type": "select",
+              "id": "animation",
+              "options": [
+                {
+                  "value": "fadeInUp",
+                  "label": "fadeInUp"
+                },
+                {
+                  "value": "fadeInLeft",
+                  "label": "fadeInLeft"
+                },
+                {
+                  "value": "fadeInRight",
+                  "label": "fadeInRight"
+                }
+              ],
+              "default": "fadeInLeft",
+              "label": "select text animation",
+              "info": "slider animations"
+            }
+          ]
+        }
+    ],
+	"presets": [
+      {
+        "name": "Jushar Slider 3",
+        "blocks": [
+          {
+            "type": "column"
+          }
+        ]
+      }
+    ]	
+  }
+{% endschema %}
+
+{% stylesheet %}
+{% endstylesheet %}
+
+{% javascript %}
+{% endjavascript %}
